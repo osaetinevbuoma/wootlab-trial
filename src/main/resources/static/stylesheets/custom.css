@@ -1,0 +1,13 @@
+.cart-count {
+    font-size: 13px;
+    border-radius: 30%;
+    -moz-border-radius: 30%;
+    -webkit-border-radius: 30%;
+    background-color: #008dd1;
+    color: #FFFFFF;
+    padding: 3px;
+}
+
+.wootlab-logo {
+    width: 150px;
+}
