@@ -11,3 +11,28 @@
 .wootlab-logo {
     width: 150px;
 }
+
+.reviews {
+    border-bottom: 1px solid #dadada;
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.reviews .reviewer img {
+    width: 40px;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+}
+
+.reviews .reviewer span {
+    font-weight: bold;
+}
+
+.reviews .reviewer-rating {
+    margin-bottom: 5px;
+}
+
+.reviews .review {
+    font-size: 12px;
+}

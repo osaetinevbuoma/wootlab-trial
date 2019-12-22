@@ -8,6 +8,7 @@
         <link rel="stylesheet" th:href="@{/stylesheets/meanmenu.min.css}">
         <link rel="stylesheet" th:href="@{/stylesheets/easyzoom.css}">
         <link rel="stylesheet" th:href="@{/stylesheets/flashy.css}">
+        <link rel="stylesheet" th:href="@{/stylesheets/jquery.rateyo.min.css}">
     </div>
 </head>
 <body>
@@ -55,6 +56,9 @@
                     <div class="col-md-12 col-lg-5 col-12">
                         <div class="product-details-content">
                             <h3>Handcrafted Supper Mug</h3>
+                            <div class="rating-number">
+                                <div class="rating">2</div>
+                            </div>
                             <div class="details-price">
                                 <span>$120.00</span>
                             </div>
@@ -102,12 +106,99 @@
                 </div>
             </div>
         </div>
+        <div class="product-description-review-area pb-100">
+            <div class="container">
+                <div class="product-description-review">
+                    <div class="description-review-title nav text-center" role=tablist>
+                        <a class="active" href="product-details.html#pro-review" data-toggle="tab" role="tab" aria-selected="true">
+                            Reviews (4)
+                        </a>
+                    </div>
+                    <div class="description-review-text tab-content">
+                        <div class="tab-pane active show fade" id="pro-review" role="tabpanel">
+                            <div class="reviews">
+                                <div class="reviewer mb-20">
+                                    <img th:src="@{/images/product/1.jpg}" class="mr-10" alt="">
+                                    <span>John Doe</span>
+                                </div>
+                                <div class="reviewer-rating" id="review_1" th:data-rating="5">5</div>
+                                <div class="review">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                </div>
+                            </div>
+                            <div class="reviews">
+                                <div class="reviewer mb-20">
+                                    <img th:src="@{/images/product/2.jpg}" class="mr-10" alt="">
+                                    <span>John Doe</span>
+                                </div>
+                                <div class="reviewer-rating" id="review_2" th:data-rating="1">1</div>
+                                <div class="review">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                </div>
+                            </div>
+                            <div class="reviews">
+                                <div class="reviewer mb-20">
+                                    <img th:src="@{/images/product/3.jpg}" class="mr-10" alt="">
+                                    <span>John Doe</span>
+                                </div>
+                                <div class="reviewer-rating" id="review_3" th:data-rating="4">4</div>
+                                <div class="review">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                </div>
+                            </div>
+                            <div class="reviews">
+                                <div class="reviewer mb-20">
+                                    <img th:src="@{/images/product/4.jpg}" class="mr-10" alt="">
+                                    <span>John Doe</span>
+                                </div>
+                                <div class="reviewer-rating" id="review_4" th:data-rating="2">2</div>
+                                <div class="review">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div layout:fragment="javascripts">
         <script type="text/javascript" th:src="@{/javascripts/lib/jquery.flashy.min.js}"></script>
+        <script type="text/javascript" th:src="@{/javascripts/lib/jquery.rateyo.min.js}"></script>
         <script type="text/javascript">
             $(document).ready(function () {
+                let rating = $('.rating').html();
+                $('.rating').rateYo({
+                    rating: rating,
+                    ratedFill: "#ff0000",
+                    readOnly: true,
+                    halfStar: true,
+                    starWidth: "15px"
+                });
+
+
+                let reviewer_ratings = $('.description-review-text').find('.reviewer-rating');
+                for (let i = 0; i < reviewer_ratings.length; i++) {
+                    let id = reviewer_ratings[i].id;
+                    let rating = $('#' + id).data('rating');
+                    $('#' + id).rateYo({
+                        rating: rating,
+                        ratedFill: "#ff0000",
+                        readOnly: true,
+                        halfStar: true,
+                        starWidth: "15px"
+                    });
+                }
+
                 $('.video1').flashy({
                     showClass: 'fx-fadeIn',
                     hideClass: 'fx-fadeOut'
