@@ -32,6 +32,9 @@ public class Product {
     @Column(nullable = false)
     private Double rating;
 
+    @Column(nullable = false)
+    private String imageUrl;
+
     @CreatedDate
     private Date createdAt;
 
