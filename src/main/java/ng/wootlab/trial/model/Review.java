@@ -28,15 +28,13 @@ public class Review {
     @Column(nullable = false)
     private Double rating;
 
-    @Column(nullable = false, length = 30000)
+    @Column(nullable = false, length = 20000)
     private String review;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToOne(targetEntity = Product.class)

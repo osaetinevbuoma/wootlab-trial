@@ -24,11 +24,9 @@ public class Category {
     private String category;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @OneToMany(targetEntity = Product.class, mappedBy = "category")

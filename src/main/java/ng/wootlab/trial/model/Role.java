@@ -24,11 +24,9 @@ public class Role {
     private String role;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @OneToMany(targetEntity = Customer.class, mappedBy = "role")

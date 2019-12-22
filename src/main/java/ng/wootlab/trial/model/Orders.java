@@ -12,7 +12,7 @@ import java.util.Date;
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Order {
+public class Orders {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
@@ -29,19 +29,17 @@ public class Order {
     private Double price;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
 
-    public Order() { }
+    public Orders() { }
 
-    public Order(String product, Integer quantity, Double price) {
+    public Orders(String product, Integer quantity, Double price) {
         this.product = product;
         this.quantity = quantity;
         this.price = price;

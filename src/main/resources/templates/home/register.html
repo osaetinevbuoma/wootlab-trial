@@ -12,15 +12,30 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
+                        <div th:if="${error}">
+                            <div th:replace="fragments/alert :: alert(type='danger', message=${error})"></div>
+                        </div>
+
                         <div class="login">
                             <div class="login-form-container">
                                 <div class="login-form">
-                                    <form action="register.html#" method="post">
-                                        <input type="text" name="firstname" placeholder="First Name">
-                                        <input type="text" name="surname" placeholder="Surname">
-                                        <input name="user-email" placeholder="Email" type="email">
-                                        <input type="password" name="user-password"
-                                               placeholder="Password">
+                                    <form th:action="@{/register}" th:object="${customer}" method="post">
+                                        <input type="text" name="firstname" placeholder="First Name"
+                                               th:field="*{firstName}">
+                                        <span th:if="${#fields.hasErrors('firstName')}"
+                                              th:errors="*{firstName}" class="text-danger"></span>
+                                        <input type="text" name="surname" placeholder="Surname"
+                                               th:field="*{surname}">
+                                        <span th:if="${#fields.hasErrors('surname')}"
+                                              th:errors="*{surname}" class="text-danger"></span>
+                                        <input name="email" placeholder="Email Address" type="email"
+                                               th:field="*{email}">
+                                        <span th:if="${#fields.hasErrors('email')}"
+                                              th:errors="*{email}" class="text-danger"></span>
+                                        <input type="password" name="password" placeholder="Password"
+                                               th:field="*{password}">
+                                        <span th:if="${#fields.hasErrors('password')}"
+                                              th:errors="*{password}" class="text-danger"></span>
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
                                                 <a th:href="@{/}">Have an account? Sign In</a>

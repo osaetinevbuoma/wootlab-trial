@@ -23,11 +23,9 @@ public class Image {
     private String url;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToOne(targetEntity = Product.class)

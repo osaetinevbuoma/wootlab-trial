@@ -26,18 +26,16 @@ public class Product {
     @Column(nullable = false)
     private Double price;
 
-    @Column(nullable = false, length = 30000)
+    @Column(nullable = false, length = 20000)
     private String description;
 
     @Column(nullable = false)
     private Double rating;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @OneToMany(targetEntity = Image.class, mappedBy = "product")

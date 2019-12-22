@@ -5,8 +5,11 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -20,24 +23,27 @@ public class Customer {
     @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
 
-    @Column(name = "first_name", nullable = false)
+    @NotNull(message = "First name is required.")
+    @Column(nullable = false)
     private String firstName;
 
+    @NotNull(message = "Surname is required.")
     @Column(nullable = false)
     private String surname;
 
+    @NotNull(message = "Email is required.")
+    @Email(message = "Provide a correct email address.")
     @Column(nullable = false, unique = true)
     private String email;
 
+    @NotNull(message = "Password is required.")
     @Column(nullable = false)
     private String password;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @OneToMany(targetEntity = Billing.class, mappedBy = "customer")
@@ -46,8 +52,8 @@ public class Customer {
     @OneToMany(targetEntity = Cart.class, mappedBy = "customer")
     private List<Cart> carts;
 
-    @OneToMany(targetEntity = Order.class, mappedBy = "customer")
-    private List<Order> orders;
+    @OneToMany(targetEntity = Orders.class, mappedBy = "customer")
+    private List<Orders> orders;
 
     @ManyToOne(targetEntity = Role.class)
     private Role role;

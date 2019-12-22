@@ -12,16 +12,19 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
+                        <div th:if="${success}">
+                            <div th:replace="fragments/alert :: alert(type='success', message=${success})"></div>
+                        </div>
+
                         <div class="login">
                             <div class="login-form-container">
                                 <div class="login-form">
-                                    <form action="login.html#" method="post">
-                                        <input type="email" name="email" placeholder="Email Address">
+                                    <form th:action="@{/}" method="post">
+                                        <input type="email" name="email" placeholder="Email Address"
+                                               th:value="${customerEmail}">
                                         <input type="password" name="password" placeholder="Password">
                                         <div class="button-box">
                                             <div class="login-toggle-btn">
-                                                <input type="checkbox">
-                                                <label>Remember me</label>
                                                 <a th:href="@{/register}">Don't have an account? Register</a>
                                             </div>
                                             <button type="submit" class="default-btn floatright">Login</button>

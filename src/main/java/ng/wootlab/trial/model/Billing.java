@@ -43,6 +43,12 @@ public class Billing {
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
 
+    @CreatedDate
+    private Date createdAt;
+
+    @LastModifiedDate
+    private Date updatedAt;
+
     public Billing() { }
 
     public Billing(String firstName, String surname, String address, String city, String state,
@@ -55,12 +61,4 @@ public class Billing {
         this.email = email;
         this.phone = phone;
     }
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private Date createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at")
-    private Date updatedAt;
 }

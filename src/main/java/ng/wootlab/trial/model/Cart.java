@@ -7,6 +7,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
 
 @Data
@@ -22,21 +23,20 @@ public class Cart {
     @Column(nullable = false)
     private String product;
 
-    @Column(name = "product_image_url", nullable = false)
+    @Column(nullable = false)
     private String productNameUrl;
 
     @Column(nullable = false)
     private Double price;
 
+    @Min(1)
     @Column(nullable = false)
     private Integer quantity;
 
     @CreatedDate
-    @Column(name = "created_at")
     private Date createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
     private Date updatedAt;
 
     @ManyToOne(targetEntity = Customer.class)

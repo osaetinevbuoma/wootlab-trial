@@ -7,17 +7,23 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-6">
                         <div class="logo">
-                            <a th:href="@{/}">
+                            <a th:href="@{/}" sec:authorize="isAnonymous()">
+                                <img th:src="@{/images/logo.png}" alt="" class="wootlab-logo" />
+                            </a>
+                            <a th:href="@{/products}" sec:authorize="isAuthenticated()">
                                 <img th:src="@{/images/logo.png}" alt="" class="wootlab-logo" />
                             </a>
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-6">
+                    <div class="col-lg-6 col-md-6 col-6" sec:authorize="isAuthenticated()">
                         <div class="header-search-cart">
                             <div class="header-cart common-style">
-                                <button class="sidebar-trigger">
+                                <button class="sidebar-trigger" th:title="Cart">
                                     <span class="ion-bag"></span>
                                     <sup class="cart-count">3</sup>
+                                </button>
+                                <button th:title="Logout" onclick="window.location = '/logout';">
+                                    <span class="ion-log-out"></span>
                                 </button>
                             </div>
                         </div>
@@ -28,7 +34,7 @@
     </header>
     <!-- header end -->
     <!-- sidebar-cart start -->
-    <div class="sidebar-cart onepage-sidebar-area">
+    <div class="sidebar-cart onepage-sidebar-area" sec:authorize="isAuthenticated()">
         <div class="wrap-sidebar">
             <div class="sidebar-cart-all">
                 <div class="sidebar-cart-icon">
