@@ -1,4 +1,4 @@
-package ng.wootlab.project.config.web;
+package ng.wootlab.trial.config.web;
 
 import nz.net.ultraq.thymeleaf.LayoutDialect;
 import org.springframework.context.annotation.Bean;

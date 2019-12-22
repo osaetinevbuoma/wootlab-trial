@@ -1,4 +1,4 @@
-package ng.wootlab.project;
+package ng.wootlab.trial;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
