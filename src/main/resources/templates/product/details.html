@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>Products</title>
+    <div layout:fragment="stylesheets">
+        <link rel="stylesheet" th:href="@{/stylesheets/meanmenu.min.css}">
+        <link rel="stylesheet" th:href="@{/stylesheets/easyzoom.css}">
+        <link rel="stylesheet" th:href="@{/stylesheets/flashy.css}">
+    </div>
+</head>
+<body>
+    <div layout:fragment="content">
+        <div class="product-details pt-20 pb-90">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-lg-7 col-12">
+                        <div class="product-details-img-content">
+                            <div class="product-details-tab mr-70">
+                                <div class="product-details-large tab-content">
+                                    <div class="tab-pane active show fade" id="pro-details1" role="tabpanel">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a th:href="@{/images/product-details/bl1.jpg}">
+                                                <img th:src="@{/images/product-details/l1.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pro-details2" role="tabpanel">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a th:href="@{/images/product-details/bl2.jpg}">
+                                                <img th:src="@{/images/product-details/l2.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pro-details3" role="tabpanel">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a th:href="@{/images/product-details/bl3.jpg}">
+                                                <img th:src="@{/images/product-details/l3.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane fade" id="pro-details4" role="tabpanel">
+                                        <div class="easyzoom easyzoom--overlay">
+                                            <a th:href="@{/images/product-details/bl4.jpg}">
+                                                <img th:src="@{/images/product-details/l4.jpg}" alt="">
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12 col-lg-5 col-12">
+                        <div class="product-details-content">
+                            <h3>Handcrafted Supper Mug</h3>
+                            <div class="details-price">
+                                <span>$120.00</span>
+                            </div>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmol tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veni quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</p>
+                            <div class="quickview-plus-minus">
+                                <div class="cart-plus-minus">
+                                    <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
+                                </div>
+                                <div class="quickview-btn-cart">
+                                    <a class="btn-hover-black" href="#">add to cart</a>
+                                </div>
+                            </div>
+                            <div class="product-categories product-cat-tag">
+                                <ul>
+                                    <li class="categories-title">Categories :</li>
+                                    <li><a href="#">fashion</a></li>
+                                    <li><a href="#">electronics</a></li>
+                                    <li><a href="#">toys</a></li>
+                                    <li><a href="#">food</a></li>
+                                    <li><a href="#">jewellery</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="product-details-small nav mt-12 main-product-details" role=tablist>
+                            <a class="active mr-12" href="#pro-details1" data-toggle="tab" role="tab" aria-selected="true">
+                                <img th:src="@{/images/product-details/s1.jpg}" alt="">
+                            </a>
+                            <a class="mr-12" href="#pro-details2" data-toggle="tab" role="tab" aria-selected="true">
+                                <img th:src="@{/images/product-details/s2.jpg}" alt="">
+                            </a>
+                            <a class="mr-12" href="#pro-details3" data-toggle="tab" role="tab" aria-selected="true">
+                                <img th:src="@{/images/product-details/s3.jpg}" alt="">
+                            </a>
+                            <a class="mr-12" href="#pro-details4" data-toggle="tab" role="tab" aria-selected="true">
+                                <img th:src="@{/images/product-details/s4.jpg}" alt="">
+                            </a>
+                            <a class="mr-12 video1" data-flashy-type="video" href="https://vimeo.com/271516323">
+                                <img th:src="@{/images/video.png}" alt="">
+                            </a>
+                            <a class="mr-12 video2" data-flashy-type="video" href="https://youtu.be/dzNvk80XY9s">
+                                <img th:src="@{/images/video.png}" alt="">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div layout:fragment="javascripts">
+        <script type="text/javascript" th:src="@{/javascripts/lib/jquery.flashy.min.js}"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('.video1').flashy({
+                    showClass: 'fx-fadeIn',
+                    hideClass: 'fx-fadeOut'
+                });
+
+                $('.video2').flashy({
+                    showClass: 'fx-fadeIn',
+                    hideClass: 'fx-fadeOut'
+                });
+            });
+        </script>
+    </div>
+</body>
+</html>

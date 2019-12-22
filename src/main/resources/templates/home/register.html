@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>Register</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- register-area start -->
+        <div class="register-area ptb-20">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
+                        <div class="login">
+                            <div class="login-form-container">
+                                <div class="login-form">
+                                    <form action="register.html#" method="post">
+                                        <input type="text" name="firstname" placeholder="First Name">
+                                        <input type="text" name="surname" placeholder="Surname">
+                                        <input name="user-email" placeholder="Email" type="email">
+                                        <input type="password" name="user-password"
+                                               placeholder="Password">
+                                        <div class="button-box">
+                                            <div class="login-toggle-btn">
+                                                <a th:href="@{/}">Have an account? Sign In</a>
+                                            </div>
+                                            <button type="submit" class="default-btn floatright">
+                                                Register
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- register-area end -->
+    </div>
+</body>
+</html>
