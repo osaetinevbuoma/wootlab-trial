@@ -41,6 +41,7 @@ public class CartService {
         carts.forEach(cart -> {
             Map<String, Object> cartMap = new HashMap<>();
             cartMap.put("id", cart.getId());
+            cartMap.put("product_id", cart.getProductId());
             cartMap.put("product", cart.getProduct());
             cartMap.put("product_image_url", cart.getProductImageUrl());
             cartMap.put("price", cart.getPrice());
@@ -61,9 +62,10 @@ public class CartService {
      * attempt to add a product that is already in cart.
      *
      * @param productId id of product to be added to cart
+     * @param quantity quantity of product to add to cart
      * @return a map of cart object and boolean indicating if a new product was added to cart
      */
-    public Map<String, Object> addToCart(int productId) {
+    public Map<String, Object> addToCart(int productId, int quantity) {
         Map<String, Object> map = new HashMap<>();
 
         Optional<Product> product = productRepository.findById(productId);
@@ -81,7 +83,7 @@ public class CartService {
             map.put("is_new", false);
         } else {
             cart = new Cart(product.get().getId(), product.get().getName(), product.get()
-                    .getImageUrl(), product.get().getPrice());
+                    .getImageUrl(), product.get().getPrice(), quantity);
             cart.setCustomer(customer);
             cartRepository.save(cart);
             map.put("is_new", true);
@@ -111,6 +113,25 @@ public class CartService {
         cartRepository.save(cart.get());
 
         return cart.get();
+    }
+
+    /**
+     * Update all product quantities in customer's cart.
+     *
+     * @param data list containing product cart information in customer's cart.
+     */
+    public void updateProductQuantity(List<?> data) {
+        Customer customer = customerRepository.getOne(authenticationService
+                .getAuthenticatedCustomer().getId());
+        data.forEach(cart -> {
+            Map map =  (Map) cart;
+            Optional<Cart> cartOptional = cartRepository.findByIdAndCustomer(
+                    Integer.parseInt(map.get("cart_id").toString()), customer);
+            if (cartOptional.isPresent()) {
+                cartOptional.get().setQuantity(Integer.parseInt(map.get("quantity").toString()));
+                cartRepository.save(cartOptional.get());
+            }
+        });
     }
 
     /**

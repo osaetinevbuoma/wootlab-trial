@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout}">
 <head>
+    <meta th:replace="fragments/csrf :: csrf" />
     <title>Cart</title>
 </head>
 <body>
@@ -27,42 +28,32 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td class="product-remove"><a href="cart.html#"><i class="ion-android-close"></i></a></td>
+                                    <tr v-for="(item, index) in cart_items" :key="item.id">
+                                        <td class="product-remove">
+                                            <a href="#" @click.prevent="removeFromCart(index, false)">
+                                                <i class="ion-android-close"></i>
+                                            </a>
+                                        </td>
                                         <td class="product-thumbnail">
-                                            <a href="cart.html#"><img th:src="@{/images/cart/1.jpg}" alt=""></a>
+                                            <a href="cart.html#">
+                                                <img :src="'/images' + item.product_image_url"
+                                                     alt="" width="80" height="80">
+                                            </a>
                                         </td>
-                                        <td class="product-name"><a href="cart.html#">Wooden Furniture </a></td>
-                                        <td class="product-price"><span class="amount">$165.00</span></td>
+                                        <td class="product-name">
+                                            <a href="#">{{ item.product }}</a>
+                                        </td>
+                                        <td class="product-price">
+                                            <span class="amount">
+                                                {{ formatPrice(item.price) }}
+                                            </span>
+                                        </td>
                                         <td class="product-quantity">
-                                            <input value="1" type="number">
+                                            <input v-model="item.quantity" type="number" min="1">
                                         </td>
-                                        <td class="product-subtotal">$165.00</td>
-
-                                    </tr>
-                                    <tr>
-                                        <td class="product-remove"><a href="cart.html#"><i class="ion-android-close"></i></a></td>
-                                        <td class="product-thumbnail">
-                                            <a href="cart.html#"><img th:src="@{/images/cart/2.jpg}" alt=""></a>
+                                        <td class="product-subtotal">
+                                            {{ computeSubTotal(item.price, item.quantity) }}
                                         </td>
-                                        <td class="product-name"><a href="cart.html#">Vestibulum dictum</a></td>
-                                        <td class="product-price"><span class="amount">$150.00</span></td>
-                                        <td class="product-quantity">
-                                            <input value="1" type="number">
-                                        </td>
-                                        <td class="product-subtotal">$150.00</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="product-remove"><a href="cart.html#"><i class="ion-android-close"></i></a></td>
-                                        <td class="product-thumbnail">
-                                            <a href="cart.html#"><img th:src="@{/images/cart/3.jpg}" alt=""></a>
-                                        </td>
-                                        <td class="product-name"><a href="cart.html#">Vestibulum dictum</a></td>
-                                        <td class="product-price"><span class="amount">$150.00</span></td>
-                                        <td class="product-quantity">
-                                            <input value="1" type="number">
-                                        </td>
-                                        <td class="product-subtotal">$150.00</td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -70,8 +61,17 @@
                             <div class="row">
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                     <div class="coupon-all">
-                                        <div class="coupon2">
-                                            <input class="button" name="update_cart" value="Update cart" type="submit">
+                                        <div class="coupon2" v-if="cart_count > 0">
+                                            <input class="button" name="update_cart"
+                                                   value="Remove all" type="submit"
+                                                   @click.prevent="removeFromCart(0, true)"> &nbsp;
+                                            <span class="text-success" v-show="show">
+                                                Saved
+                                                <i class="ion-checkmark"></i>
+                                            </span> &nbsp;
+                                            <input class="button" name="update_cart"
+                                                   value="Update cart" type="submit"
+                                                   @click.prevent="updateCart">
                                         </div>
                                     </div>
                                 </div>
@@ -79,12 +79,13 @@
                             <div class="row">
                                 <div class="col-md-5 ml-auto">
                                     <div class="cart-page-total">
-                                        <h2>Cart totals</h2>
+                                        <h2>Cart total</h2>
                                         <ul>
-                                            <li>Subtotal<span>100.00</span></li>
-                                            <li>Total<span>100.00</span></li>
+                                            <li>Total<span>{{ computeTotal() }}</span></li>
                                         </ul>
-                                        <a href="cart.html#">Proceed to checkout</a>
+                                        <a th:href="@{/checkout}" v-if="cart_count > 0">
+                                            Proceed to checkout
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -94,6 +95,15 @@
             </div>
         </div>
         <!-- shopping-cart-area end -->
+    </div>
+
+    <div layout:fragment="javascripts">
+        <!-- VueJS and other libraries -->
+        <script type="text/javascript" th:src="@{/javascripts/lib/vue.js}"></script>
+        <script type="text/javascript" th:src="@{/javascripts/lib/axios.min.js}"></script>
+
+        <!-- VueJS app files -->
+        <script type="text/javascript" th:src="@{/javascripts/app/vue-app/wootlab-app.js}"></script>
     </div>
 </body>
 </html>

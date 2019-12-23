@@ -10,6 +10,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -43,7 +44,9 @@ public class PurchaseController {
         }
 
         int productId = Integer.parseInt(data.get("product_id").toString());
-        Map<String, Object> resultMap = cartService.addToCart(productId);
+        int quantity = Integer.parseInt(data.get("quantity").toString());
+
+        Map<String, Object> resultMap = cartService.addToCart(productId, quantity);
         if (resultMap.get("cart") == null) {
             throw new CartNotFoundException("Selected product does not exist.");
         }
@@ -53,20 +56,9 @@ public class PurchaseController {
 
     @PutMapping(value = "/cart/update", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> updateCartProductQuantity(@RequestBody Map<String, Object> data)
-            throws CartNotFoundException {
-        if (null == data.get("cart_id") || null == data.get("quantity")) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing cart ID or quantity.");
-        }
-
-        int cartId = Integer.parseInt(data.get("cart_id").toString());
-        int quantity = Integer.parseInt(data.get("quantity").toString());
-
-        Cart cart = cartService.updateProductQuantity(cartId, quantity);
-        if (cart == null) {
-            throw new CartNotFoundException("Cart does not exist.");
-        }
-
+    public ResponseEntity<?> updateCartProductQuantity(@RequestBody Map<String, Object> data) {
+        List<?> cartData = (List<?>) data.get("data");
+        cartService.updateProductQuantity(cartData);
         return ResponseEntity.ok().build();
     }
 
