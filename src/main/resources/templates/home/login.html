@@ -16,6 +16,10 @@
                             <div th:replace="fragments/alert :: alert(type='success', message=${success})"></div>
                         </div>
 
+                        <div th:if="${error}">
+                            <div th:replace="fragments/alert :: alert(type='danger', message=${error})"></div>
+                        </div>
+
                         <div class="login">
                             <div class="login-form-container">
                                 <div class="login-form">

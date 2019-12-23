@@ -10,12 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.validation.Valid;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 @Controller
@@ -33,7 +35,12 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String login() {
+    public String login(@RequestParam("failed") Optional<String> failed, Model model) {
+        if (failed.isPresent()) {
+            model.addAttribute("error", "Invalid email and password " +
+                    "combination");
+        }
+
         return "home/login";
     }
 
