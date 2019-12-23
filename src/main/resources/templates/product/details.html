@@ -9,6 +9,11 @@
         <link rel="stylesheet" th:href="@{/stylesheets/easyzoom.css}">
         <link rel="stylesheet" th:href="@{/stylesheets/flashy.css}">
         <link rel="stylesheet" th:href="@{/stylesheets/jquery.rateyo.min.css}">
+        <style>
+            .flashy-container .flashy-content.flashy-inline {
+                width: auto;
+            }
+        </style>
     </div>
 </head>
 <body>
@@ -20,32 +25,17 @@
                         <div class="product-details-img-content">
                             <div class="product-details-tab mr-70">
                                 <div class="product-details-large tab-content">
-                                    <div class="tab-pane active show fade" id="pro-details1" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay">
-                                            <a th:href="@{/images/product-details/bl1.jpg}">
-                                                <img th:src="@{/images/product-details/l1.jpg}" alt="">
-                                            </a>
+                                    <div class="tab-pane active show fade" id="product_id_0"
+                                         role="tabpanel">
+                                        <div class="prod-details">
+                                            <img th:src="@{'/images' + ${product.images[0].url}}" alt="">
                                         </div>
                                     </div>
-                                    <div class="tab-pane fade" id="pro-details2" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay">
-                                            <a th:href="@{/images/product-details/bl2.jpg}">
-                                                <img th:src="@{/images/product-details/l2.jpg}" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pro-details3" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay">
-                                            <a th:href="@{/images/product-details/bl3.jpg}">
-                                                <img th:src="@{/images/product-details/l3.jpg}" alt="">
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="tab-pane fade" id="pro-details4" role="tabpanel">
-                                        <div class="easyzoom easyzoom--overlay">
-                                            <a th:href="@{/images/product-details/bl4.jpg}">
-                                                <img th:src="@{/images/product-details/l4.jpg}" alt="">
-                                            </a>
+                                    <div class="tab-pane fade" role="tabpanel"
+                                         th:each="image, iter :${product.images.subList(1, product.images.size())}"
+                                         th:id="${'product_id_' + (iter.index + 1)}">
+                                        <div class="prod-details">
+                                            <img th:src="@{'/images' + ${image.url}}" alt="">
                                         </div>
                                     </div>
                                 </div>
@@ -55,14 +45,14 @@
                     </div>
                     <div class="col-md-12 col-lg-5 col-12">
                         <div class="product-details-content">
-                            <h3>Handcrafted Supper Mug</h3>
+                            <h3 th:text="${product.name}"></h3>
                             <div class="rating-number">
-                                <div class="rating">2</div>
+                                <div class="rating" th:text="${product.rating}">2</div>
                             </div>
                             <div class="details-price">
-                                <span>$120.00</span>
+                                <span th:text="${'₦' + #numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></span>
                             </div>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmol tempor incidid ut labore et dolore magna aliqua. Ut enim ad minim veni quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in</p>
+                            <p th:text="${product.description}"></p>
                             <div class="quickview-plus-minus">
                                 <div class="cart-plus-minus">
                                     <input type="text" value="1" name="qtybutton" class="cart-plus-minus-box">
@@ -74,32 +64,34 @@
                             <div class="product-categories product-cat-tag">
                                 <ul>
                                     <li class="categories-title">Categories :</li>
-                                    <li><a href="#">fashion</a></li>
-                                    <li><a href="#">electronics</a></li>
-                                    <li><a href="#">toys</a></li>
-                                    <li><a href="#">food</a></li>
-                                    <li><a href="#">jewellery</a></li>
+                                    <li><a href="#" th:text="${product.category.category}"></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="product-details-small nav mt-12 main-product-details" role=tablist>
-                            <a class="active mr-12" href="#pro-details1" data-toggle="tab" role="tab" aria-selected="true">
-                                <img th:src="@{/images/product-details/s1.jpg}" alt="">
+                            <a class="active mr-12 prod-thumbnail" href="#product_id_0" data-toggle="tab" role="tab"
+                               aria-selected="true">
+                                <img th:src="@{'/images' + ${product.images[0].url}}" alt="">
                             </a>
-                            <a class="mr-12" href="#pro-details2" data-toggle="tab" role="tab" aria-selected="true">
-                                <img th:src="@{/images/product-details/s2.jpg}" alt="">
+
+                            <a class="mr-12 prod-thumbnail" data-toggle="tab" role="tab"
+                               aria-selected="true"
+                               th:each="image, iter : ${product.images.subList(1, product.images.size())}"
+                               th:href="${'#product_id_' + (iter.index + 1)}">
+                                <img th:src="@{'/images' + ${image.url}}" alt="">
                             </a>
-                            <a class="mr-12" href="#pro-details3" data-toggle="tab" role="tab" aria-selected="true">
-                                <img th:src="@{/images/product-details/s3.jpg}" alt="">
-                            </a>
-                            <a class="mr-12" href="#pro-details4" data-toggle="tab" role="tab" aria-selected="true">
-                                <img th:src="@{/images/product-details/s4.jpg}" alt="">
-                            </a>
-                            <a class="mr-12 video1" data-flashy-type="video" href="https://vimeo.com/271516323">
+
+                            <!-- Videos -->
+                            <a class="mr-12 video-reel" data-flashy-type="inline"
+                               th:each="video : ${product.videos}"
+                               th:href="${'#video_' + video.id}">
                                 <img th:src="@{/images/video.png}" alt="">
-                            </a>
-                            <a class="mr-12 video2" data-flashy-type="video" href="https://youtu.be/dzNvk80XY9s">
-                                <img th:src="@{/images/video.png}" alt="">
+                                <div th:id="${'video_' + video.id}" style="display: none;">
+                                    <video class="img-fluid" controls="controls">
+                                        <source th:src="${'/images' + video.url}"
+                                                type="video/mp4">
+                                    </video>
+                                </div>
                             </a>
                         </div>
                     </div>
@@ -110,59 +102,21 @@
             <div class="container">
                 <div class="product-description-review">
                     <div class="description-review-title nav text-center" role=tablist>
-                        <a class="active" href="product-details.html#pro-review" data-toggle="tab" role="tab" aria-selected="true">
-                            Reviews (4)
+                        <a class="active" href="#" data-toggle="tab" role="tab" aria-selected="true"
+                           th:text="${'Reviews (' + product.reviews.size() + ')'}">
                         </a>
                     </div>
                     <div class="description-review-text tab-content">
                         <div class="tab-pane active show fade" id="pro-review" role="tabpanel">
-                            <div class="reviews">
+                            <div class="reviews" th:each="review : ${product.reviews}">
                                 <div class="reviewer mb-20">
-                                    <img th:src="@{/images/product/1.jpg}" class="mr-10" alt="">
-                                    <span>John Doe</span>
+                                    <img th:src="@{'/images' + ${review.reviewerImageUrl}}"
+                                         class="mr-10" alt="">
+                                    <span th:text="${review.reviewer}"></span>
                                 </div>
-                                <div class="reviewer-rating" id="review_1" th:data-rating="5">5</div>
-                                <div class="review">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                </div>
-                            </div>
-                            <div class="reviews">
-                                <div class="reviewer mb-20">
-                                    <img th:src="@{/images/product/2.jpg}" class="mr-10" alt="">
-                                    <span>John Doe</span>
-                                </div>
-                                <div class="reviewer-rating" id="review_2" th:data-rating="1">1</div>
-                                <div class="review">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                </div>
-                            </div>
-                            <div class="reviews">
-                                <div class="reviewer mb-20">
-                                    <img th:src="@{/images/product/3.jpg}" class="mr-10" alt="">
-                                    <span>John Doe</span>
-                                </div>
-                                <div class="reviewer-rating" id="review_3" th:data-rating="4">4</div>
-                                <div class="review">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                </div>
-                            </div>
-                            <div class="reviews">
-                                <div class="reviewer mb-20">
-                                    <img th:src="@{/images/product/4.jpg}" class="mr-10" alt="">
-                                    <span>John Doe</span>
-                                </div>
-                                <div class="reviewer-rating" id="review_4" th:data-rating="2">2</div>
-                                <div class="review">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in.
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                                </div>
+                                <div class="reviewer-rating" th:id="${'review_' + review.id}"
+                                     th:data-rating="${review.rating}"></div>
+                                <div class="review" th:text="${review.review}"></div>
                             </div>
                         </div>
                     </div>
@@ -199,12 +153,7 @@
                     });
                 }
 
-                $('.video1').flashy({
-                    showClass: 'fx-fadeIn',
-                    hideClass: 'fx-fadeOut'
-                });
-
-                $('.video2').flashy({
+                $('.video-reel').flashy({
                     showClass: 'fx-fadeIn',
                     hideClass: 'fx-fadeOut'
                 });

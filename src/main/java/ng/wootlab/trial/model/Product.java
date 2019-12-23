@@ -35,6 +35,8 @@ public class Product {
     @Column(nullable = false)
     private String imageUrl;
 
+    private Boolean onSale;
+
     @CreatedDate
     private Date createdAt;
 

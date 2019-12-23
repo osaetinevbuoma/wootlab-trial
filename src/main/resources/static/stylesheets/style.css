@@ -717,7 +717,7 @@
 .product-img img {
   width: 100%;
 }
-.single-product , .product-img {
+.single-product {
   position: relative;
 }
 .product-img > span {

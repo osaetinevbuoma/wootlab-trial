@@ -10,418 +10,76 @@
         <div class="product-collection-area pb-50">
             <div class="container">
                 <div class="section-title text-center mb-55">
-                    <h2>New Collection</h2>
-                    <p>It is a long established fact that a reader will be distracted by the readable
-                        content of a page when look</p>
+                    <h2>Marketplace Collection</h2>
                 </div>
                 <div class="row">
-                    <div class="col-md-6 col-lg-4 col-xl-3">
+                    <div class="col-md-6 col-lg-4 col-xl-3" th:each="product : ${products}">
                         <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/5.jpg}" alt=""></a>
-                                <span>sale</span>
+                            <div class="product-img mb-10">
+                                <a th:href="@{'/products/' + ${product.id}}">
+                                    <img th:src="${'/images' + product.imageUrl}" alt="">
+                                </a>
+                                <span th:if="${product.onSale}">sale</span>
                             </div>
                             <div class="product-content">
                                 <div class="product-title-price">
                                     <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
+                                        <h4>
+                                            <a th:href="@{'/products/' + ${product.id}}"
+                                               th:text="${product.name}"></a>
+                                        </h4>
                                     </div>
                                     <div class="product-price">
-                                        <span>$110.00</span>
+                                        <span th:text="${'₦' + #numbers.formatDecimal(product.price, 0, 'COMMA', 2, 'POINT')}"></span>
                                     </div>
                                 </div>
                                 <div class="product-cart-categori">
                                     <div class="product-cart">
-                                        <span>Furniter</span>
+                                        <span th:text="${product.category.category}"></span>
                                     </div>
                                     <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
+                                        <a href="#">
+                                            <i class="ion-bag"></i> Add to cart
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/6.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$120.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/7.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$130.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/8.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$140.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/9.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$150.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/10.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$160.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/11.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$170.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/12.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$180.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/5.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$110.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/6.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$120.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/7.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$130.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/8.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$140.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/9.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">HANDCRAFTED MUG</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$150.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/10.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$160.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/11.jpg}" alt=""></a>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$170.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6 col-lg-4 col-xl-3">
-                        <div class="single-product mb-35">
-                            <div class="product-img">
-                                <a th:href="@{/products/details}"><img th:src="@{/images/product/12.jpg}" alt=""></a>
-                                <span>sale</span>
-                            </div>
-                            <div class="product-content">
-                                <div class="product-title-price">
-                                    <div class="product-title">
-                                        <h4><a th:href="@{/products/details}">WOODEN FURNITURE</a></h4>
-                                    </div>
-                                    <div class="product-price">
-                                        <span>$180.00</span>
-                                    </div>
-                                </div>
-                                <div class="product-cart-categori">
-                                    <div class="product-cart">
-                                        <span>Furniter</span>
-                                    </div>
-                                    <div class="product-categori">
-                                        <a th:href="@{/products/details}"><i class="ion-bag"></i> Add to cart</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12">
+                        <nav aria-label="Page navigation" th:if="${products}">
+                            <ul class="pagination justify-content-center"
+                                th:if="${products.totalPages > 0}">
+                                <li class="page-item"
+                                    th:classappend="${products.number + 1==1} ? disabled">
+                                    <a class="page-link" aria-label="Previous"
+                                       th:href="@{/products(page=${products.number})}">
+                                                <span aria-hidden="true">
+                                                    <!--<img th:src="@{/images/left-arrow.png}"
+                                                         alt="left-arrow">-->
+                                                    Previous
+                                                </span></a>
+                                </li>
+                                <li th:class="'page-item'" th:each="pageNumber: ${pageNumbers}"
+                                    th:classappend="${pageNumber==products.number + 1} ? active">
+                                    <a th:href="@{/products(page=${pageNumber})}"
+                                       th:text="${pageNumber}" class="page-link"></a>
+                                </li>
+                                <li class="page-item"
+                                    th:classappend="${products.number + 1==products.totalPages} ? disabled">
+                                    <a class="page-link" aria-label="Next"
+                                       th:href="@{/products(page=${products.number + 2})}">
+                                                <span aria-hidden="true">
+                                                    <!--<img th:src="@{/images/right-arrow.png}"
+                                                         alt="left-arrow">-->
+                                                    Next
+                                                </span></a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>

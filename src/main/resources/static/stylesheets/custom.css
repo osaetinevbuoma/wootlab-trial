@@ -36,3 +36,16 @@
 .reviews .review {
     font-size: 12px;
 }
+
+.product-img {
+    height: 300px;
+}
+
+.prod-details img {
+    width: 100%;
+}
+
+.prod-thumbnail img {
+    width: 141px;
+    height: 135px;
+}
