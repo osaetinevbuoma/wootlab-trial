@@ -21,10 +21,13 @@ public class Cart {
     private Integer id;
 
     @Column(nullable = false)
+    private Integer productId;
+
+    @Column(nullable = false)
     private String product;
 
     @Column(nullable = false)
-    private String productNameUrl;
+    private String productImageUrl;
 
     @Column(nullable = false)
     private Double price;
@@ -44,16 +47,19 @@ public class Cart {
 
     public Cart() { }
 
-    public Cart(String product, String productNameUrl, Double price) {
+    public Cart(Integer productId, String product, String productImageUrl, Double price) {
+        this.productId = productId;
         this.product = product;
-        this.productNameUrl = productNameUrl;
+        this.productImageUrl = productImageUrl;
         this.price = price;
         this.quantity = 1;
     }
 
-    public Cart(String product, String productNameUrl, Double price, Integer quantity) {
+    public Cart(Integer productId, String product, String productImageUrl, Double price,
+                Integer quantity) {
+        this.productId = productId;
         this.product = product;
-        this.productNameUrl = productNameUrl;
+        this.productImageUrl = productImageUrl;
         this.price = price;
         this.quantity = quantity;
     }
