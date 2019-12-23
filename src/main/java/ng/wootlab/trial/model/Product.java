@@ -57,17 +57,19 @@ public class Product {
 
     public Product() { }
 
-    public Product(String name, Double price, String description) {
+    public Product(String name, Double price, String description, String imageUrl) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.rating = 0.0;
     }
 
-    public Product(String name, Double price, String description, Double rating) {
+    public Product(String name, Double price, String description, String imageUrl, Double rating) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.imageUrl = imageUrl;
         this.rating = rating;
     }
 }

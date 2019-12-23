@@ -17,18 +17,13 @@ import org.springframework.test.context.junit4.SpringRunner;
 //@SpringBootTest
 @RunWith(SpringRunner.class)
 @DataJpaTest
-class WootlabTechnicalTrialApplicationTests {
+class RegistrationUseCaseTests {
 
     @Autowired CustomerRepository customerRepository;
     @Autowired RoleRepository roleRepository;
     @Autowired TestEntityManager testEntityManager;
 
     private CustomerService customerService;
-
-    @Before
-    public void setUp() {
-
-    }
 
     @BeforeEach
     void initServices() {

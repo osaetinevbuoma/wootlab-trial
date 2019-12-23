@@ -22,7 +22,7 @@ public class Review {
     @Column(nullable = false)
     private String reviewer;
 
-    @Column(name = "reviewer_image_url", nullable = false)
+    @Column(nullable = false)
     private String reviewerImageUrl;
 
     @Column(nullable = false)
