@@ -32,9 +32,9 @@ public class Category {
     @OneToMany(targetEntity = Product.class, mappedBy = "category")
     private List<Product> products;
 
-    private Category() { }
+    public Category() { }
 
-    private Category(String category) {
+    public Category(String category) {
         this.category = category;
     }
 }

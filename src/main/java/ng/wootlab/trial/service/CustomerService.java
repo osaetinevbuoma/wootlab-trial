@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CustomerService {
-
     private final CustomerRepository customerRepository;
     private final RoleRepository roleRepository;
 
