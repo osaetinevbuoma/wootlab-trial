@@ -15,8 +15,11 @@
                     <div class="footer-widget">
                         <div class="footer-widget-m-content text-center">
                             <div class="footer-logo">
-                                <a href="index.html#">
-                                    <img th:src="@{/images/logo.png}" alt="" class="wootlab-logo">
+                                <a th:href="@{/}" sec:authorize="isAnonymous()">
+                                    <img th:src="@{/images/logo.png}" alt="" class="wootlab-logo" />
+                                </a>
+                                <a th:href="@{/products}" sec:authorize="isAuthenticated()">
+                                    <img th:src="@{/images/logo.png}" alt="" class="wootlab-logo" />
                                 </a>
                             </div>
                         </div>

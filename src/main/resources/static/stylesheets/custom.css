@@ -49,3 +49,9 @@
     width: 141px;
     height: 135px;
 }
+
+.home-background {
+    background: url('/images/happy_shopper.png') no-repeat center;
+    background-size: 80%;
+    position: relative;
+}

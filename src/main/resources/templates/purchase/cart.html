@@ -19,8 +19,8 @@
                                 <table>
                                     <thead>
                                     <tr>
-                                        <th class="product-name">remove</th>
-                                        <th class="product-price">images</th>
+                                        <th class="product-name">Remove</th>
+                                        <th class="product-price"></th>
                                         <th class="product-name">Product</th>
                                         <th class="product-price">Price</th>
                                         <th class="product-quantity">Quantity</th>
@@ -65,7 +65,8 @@
                                             <input class="button" name="update_cart"
                                                    value="Remove all" type="submit"
                                                    @click.prevent="removeFromCart(0, true)"> &nbsp;
-                                            <span class="text-success" v-show="show">
+                                            <span class="text-success" v-html="notification_message"
+                                                  v-show="show">
                                                 Saved
                                                 <i class="ion-checkmark"></i>
                                             </span> &nbsp;

@@ -63,10 +63,8 @@
                                     <a class="btn-hover-black" href="#"
                                        th:v-on:click.prevent="${'addToCart(' + product.id + ')'}">
                                         add to cart</a> &nbsp;
-                                    <span class="text-success" v-show="show">
-                                        Added to Cart
-                                        <i class="ion-checkmark"></i>
-                                    </span>
+                                    <span class="text-success" v-html="notification_message"
+                                          v-show="show"></span>
                                 </div>
                             </div>
                             <div class="product-categories product-cat-tag">
@@ -78,13 +76,13 @@
                         </div>
                         <div class="product-details-small nav mt-12 main-product-details"
                              role=tablist>
-                            <a class="active mr-12 prod-thumbnail" href="#product_id_0"
+                            <a class="active mr-12 prod-thumbnail img-fluid" href="#product_id_0"
                                data-toggle="tab" role="tab"
                                aria-selected="true">
                                 <img th:src="@{'/images' + ${product.images[0].url}}" alt="">
                             </a>
 
-                            <a class="mr-12 prod-thumbnail" data-toggle="tab" role="tab"
+                            <a class="mr-12 prod-thumbnail img-fluid" data-toggle="tab" role="tab"
                                aria-selected="true"
                                th:each="image, iter : ${product.images.subList(1, product.images.size())}"
                                th:href="${'#product_id_' + (iter.index + 1)}">

@@ -12,7 +12,8 @@ const wootlab_app = new Vue({
         cart_items: [],
         quantity: 1,
         sub_total: 0,
-        show: false
+        show: false,
+        notification_message: ''
     },
     mounted: function () {
         this.getCart();
@@ -39,12 +40,13 @@ const wootlab_app = new Vue({
                 quantity: this.quantity
             };
 
-            axios.post('/cart/add', data, { headers: headers })
-                .then((response) => {
+            axios.post('/cart/add', data, { headers: headers }).then((response) => {
                     if (response.data) {
                         this.cart_count += 1;
+                        this.notification_message = 'Added to Cart <i class="ion-checkmark"></i>';
                         this.show = true;
                         setTimeout(() => {
+                            this.notification_message = '';
                             this.show = false;
                         }, 1500);
                     }
@@ -119,8 +121,10 @@ const wootlab_app = new Vue({
             }
 
             axios.put('/cart/update', { data: data }, { headers: headers }).then((response) => {
+                this.notification_message = 'Saved <i class="ion-checkmark"></i>';
                 this.show = true;
                 setTimeout(() => {
+                    this.notification_message = '';
                     this.show = false;
                 }, 1500);
             }).catch((error) => {
