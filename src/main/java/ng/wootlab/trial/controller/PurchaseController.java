@@ -91,4 +91,9 @@ public class PurchaseController {
     public String confirmation() {
         return "purchase/confirmation";
     }
+
+    @GetMapping("/payment")
+    public String payment() {
+        return "purchase/payment";
+    }
 }

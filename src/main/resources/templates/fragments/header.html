@@ -19,7 +19,9 @@
                         <div class="header-search-cart">
                             <div class="header-cart common-style">
                                 <button class="sidebar-trigger" th:title="Cart"
-                                        onclick="window.location = '/cart'">
+                                        onclick="window.location = '/cart'"
+                                        th:if="${!#httpServletRequest.servletPath.equals('/confirmation') &&
+                                        !#httpServletRequest.servletPath.equals('/payment')}">
                                     <span class="ion-bag"></span>
                                     <sup class="cart-count" v-if="cart_count > 0">{{ cart_count }}</sup>
                                 </button>

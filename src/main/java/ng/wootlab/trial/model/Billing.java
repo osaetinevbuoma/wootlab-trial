@@ -19,10 +19,10 @@ public class Billing {
     @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
 
-    @Column(name = "first_name", nullable = false)
+    @Column(nullable = false)
     private String firstName;
 
-    @Column(name = "surname", nullable = false)
+    @Column(nullable = false)
     private String surname;
 
     @Column(nullable = false, length = 10000)

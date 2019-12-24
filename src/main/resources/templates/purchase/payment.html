@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}">
+<head>
+    <title>Confirmation</title>
+</head>
+<body>
+    <div layout:fragment="content">
+        <!-- register-area start -->
+        <div class="register-area ptb-20">
+            <div class="container">
+                <div class="row" style="height: 500px">
+                    <div class="col-md-4 col-4 col-lg-4 col-xl-4 ml-auto mr-auto">
+                        <div id="paymentContainer"></div>
+                        <div class="button-box pt-30">
+                            <div align="center">
+                                <a th:href="@{/checkout}" class="default-btn">Cancel</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- register-area end -->
+    </div>
+
+    <div layout:fragment="javascripts">
+        <script src="https://js.paystack.co/v1/inline.js"></script>
+        <script>
+            PaystackPop.setup({
+                key: 'pk_test_11e5abfb56cdb46ed86516ce2620a87119819546',
+                email: 'customer@email.com',
+                amount: 10000,
+                container: 'paymentContainer',
+                currency: "NGN",
+                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: "Mobile Number",
+                            variable_name: "mobile_number",
+                            value: "+2348012345678"
+                        }
+                    ]
+                },
+                callback: function (response) {
+                    alert('successfully subscribed. transaction ref is ' + response.reference);
+                },
+            });
+        </script>
+    </div>
+</body>
+</html>
