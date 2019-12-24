@@ -42,7 +42,7 @@ dependencies {
     testImplementation 'com.h2database:h2'
     testImplementation 'org.assertj:assertj-core'
     testImplementation 'org.junit.jupiter:junit-jupiter-engine'
-    implementation 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 }
 
 test {

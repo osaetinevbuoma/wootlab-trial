@@ -3,7 +3,6 @@ package ng.wootlab.trial.service;
 import ng.wootlab.trial.auth.AuthenticatedCustomer;
 import ng.wootlab.trial.model.Customer;
 import ng.wootlab.trial.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,10 +24,21 @@ public class AuthenticationService implements UserDetailsService {
         return new AuthenticatedCustomer(customer);
     }
 
+    /**
+     * Returns the authentication security context.
+     *
+     * @return
+     */
     public Authentication getAuthentication() {
         return SecurityContextHolder.getContext().getAuthentication();
     }
 
+    /**
+     * Returns an authenticated customer object. The object will contain customer information
+     * as defined in AuthenticatedCustomer class.
+     *
+     * @return an authenticated customer
+     */
     public AuthenticatedCustomer getAuthenticatedCustomer() {
         return (AuthenticatedCustomer) getAuthentication().getPrincipal();
     }

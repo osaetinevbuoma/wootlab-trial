@@ -5,29 +5,29 @@ import ng.wootlab.trial.repository.CustomerRepository;
 import ng.wootlab.trial.repository.RoleRepository;
 import ng.wootlab.trial.service.CustomerService;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.boot.test.context.SpringBootTest;
 
-//@SpringBootTest
-@RunWith(SpringRunner.class)
-@DataJpaTest
+@SpringBootTest
 class RegistrationUseCaseTests {
 
     @Autowired CustomerRepository customerRepository;
     @Autowired RoleRepository roleRepository;
-    @Autowired TestEntityManager testEntityManager;
 
     private CustomerService customerService;
 
     @BeforeEach
-    void initServices() {
+    void init() {
         customerService = new CustomerService(customerRepository, roleRepository);
+    }
+
+    @AfterEach
+    void destroy() {
+        roleRepository.deleteAll();
+        customerRepository.deleteAll();
     }
 
     @Test

@@ -4,11 +4,13 @@ import ng.wootlab.trial.model.Product;
 import ng.wootlab.trial.repository.ProductRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
 @Service
+@PreAuthorize("authenticated")
 public class ProductService {
     private final ProductRepository productRepository;
 

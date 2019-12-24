@@ -4,7 +4,7 @@ import ng.wootlab.trial.model.*;
 import ng.wootlab.trial.repository.*;
 import ng.wootlab.trial.service.ProductService;
 import org.assertj.core.api.Assertions;
-import org.junit.Before;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -20,66 +20,35 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
-public class ProductUseCaseTest {
-    @Autowired
-    CategoryRepository categoryRepository;
+public class ProductUseCaseTests {
 
-    @Autowired
-    ImageRepository imageRepository;
+    @Autowired private CategoryRepository categoryRepository;
+    @Autowired private ImageRepository imageRepository;
+    @Autowired private ProductRepository productRepository;
+    @Autowired private ReviewRepository reviewRepository;
+    @Autowired private VideoRepository videoRepository;
 
-    @Autowired
-    ProductRepository productRepository;
-
-    @Autowired
-    ReviewRepository reviewRepository;
-
-    @Autowired
-    VideoRepository videoRepository;
-
-    @Autowired
-    TestEntityManager testEntityManager;
+    @Autowired TestEntityManager testEntityManager;
 
     private ProductService productService;
+    private Utilities utilities;
 
     @BeforeEach
-    void initService() {
+    void setUp() {
+        productService = new ProductService(productRepository);
+
+        utilities = new Utilities(testEntityManager);
         // Create categories
-        testEntityManager.persist(new Category("Toys"));
-        testEntityManager.persist(new Category("Furniture"));
-        testEntityManager.persist(new Category("Jewelry"));
-        testEntityManager.flush();
+        utilities.createProductCategories();
 
         // Create products
         Category category = categoryRepository.findByCategory("Toys").get();
-        for (int i = 0; i < 3; i++) {
-            double price = ((i+1)*20000);
-            double rating = i+1;
-            Product product = new Product("Product_" + i, price, "Some description",
-                    "image_url", rating);
-            product.setCategory(category);
-            testEntityManager.persist(product);
-            testEntityManager.flush();
+        utilities.createProducts(category);
+    }
 
-            for (int j = 0; j < 10; j++) {
-                Image image = new Image("image_url_" + j);
-                image.setProduct(product);
-
-                Video video = new Video("video_url_" + j);
-                video.setProduct(product);
-
-                double rate = j/2;
-                Review review = new Review("Reviewer_" + j,
-                        "reviewer_image_url_" + j, rate, "Review");
-                review.setProduct(product);
-
-                testEntityManager.persist(review);
-                testEntityManager.persist(video);
-                testEntityManager.persist(image);
-                testEntityManager.flush();
-            }
-        }
-
-        productService = new ProductService(productRepository);
+    @AfterEach
+    void destroy() {
+        utilities.destroyDB();
     }
 
     @Test
@@ -106,7 +75,7 @@ public class ProductUseCaseTest {
 
         List<Image> images = imageRepository.findAllByProduct(product.get());
         Assertions.assertThat(images.size()).isGreaterThan(0);
-        Assertions.assertThat(images.size()).isEqualTo(10);
+        Assertions.assertThat(images.size()).isEqualTo(3);
 
         Image image = imageRepository.getOne(images.get(0).getId());
         Assertions.assertThat(images.get(0).getUrl()).isEqualTo(image.getUrl());
@@ -121,7 +90,7 @@ public class ProductUseCaseTest {
 
         List<Video> videos = videoRepository.findAllByProduct(product.get());
         Assertions.assertThat(videos.size()).isGreaterThan(0);
-        Assertions.assertThat(videos.size()).isEqualTo(10);
+        Assertions.assertThat(videos.size()).isEqualTo(3);
 
         Video video = videoRepository.getOne(videos.get(0).getId());
         Assertions.assertThat(videos.get(0).getUrl()).isEqualTo(video.getUrl());
@@ -136,7 +105,7 @@ public class ProductUseCaseTest {
 
         List<Review> reviews = reviewRepository.findAllByProduct(product.get());
         Assertions.assertThat(reviews.size()).isGreaterThan(0);
-        Assertions.assertThat(reviews.size()).isEqualTo(10);
+        Assertions.assertThat(reviews.size()).isEqualTo(3);
 
         Review review = reviewRepository.getOne(reviews.get(0).getId());
         Assertions.assertThat(reviews.get(0).getReviewer()).isEqualTo(review.getReviewer());

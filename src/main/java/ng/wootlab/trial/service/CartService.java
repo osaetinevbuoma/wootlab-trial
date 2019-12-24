@@ -6,17 +6,21 @@ import ng.wootlab.trial.model.Product;
 import ng.wootlab.trial.repository.CartRepository;
 import ng.wootlab.trial.repository.CustomerRepository;
 import ng.wootlab.trial.repository.ProductRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.*;
+import java.util.logging.Logger;
 
 @Service
+@PreAuthorize("authenticated")
 public class CartService {
     private final CartRepository cartRepository;
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final AuthenticationService authenticationService;
+
+    private final static Logger log = Logger.getLogger(CartService.class.getName());
 
     public CartService(CartRepository cartRepository, CustomerRepository customerRepository,
                        ProductRepository productRepository,
@@ -25,6 +29,11 @@ public class CartService {
         this.customerRepository = customerRepository;
         this.productRepository = productRepository;
         this.authenticationService = authenticationService;
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    public String sayHello() {
+        return "Hello " + authenticationService.getAuthenticatedCustomer().getEmail();
     }
 
     /**
@@ -37,6 +46,7 @@ public class CartService {
 
         Customer customer = customerRepository.getOne(authenticationService
                 .getAuthenticatedCustomer().getId());
+        log.info(authenticationService.getAuthentication().toString());
         List<Cart> carts = cartRepository.findAllByCustomer(customer);
         carts.forEach(cart -> {
             Map<String, Object> cartMap = new HashMap<>();
