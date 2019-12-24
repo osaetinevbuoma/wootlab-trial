@@ -31,11 +31,6 @@ public class CartService {
         this.authenticationService = authenticationService;
     }
 
-    @PreAuthorize("isAuthenticated()")
-    public String sayHello() {
-        return "Hello " + authenticationService.getAuthenticatedCustomer().getEmail();
-    }
-
     /**
      * Get list of products in customer's cart.
      *
@@ -46,7 +41,6 @@ public class CartService {
 
         Customer customer = customerRepository.getOne(authenticationService
                 .getAuthenticatedCustomer().getId());
-        log.info(authenticationService.getAuthentication().toString());
         List<Cart> carts = cartRepository.findAllByCustomer(customer);
         carts.forEach(cart -> {
             Map<String, Object> cartMap = new HashMap<>();

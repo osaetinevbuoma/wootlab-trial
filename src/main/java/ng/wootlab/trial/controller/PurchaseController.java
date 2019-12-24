@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -74,7 +75,15 @@ public class PurchaseController {
     }
 
     @GetMapping("/checkout")
-    public String checkout() {
+    public String checkout(Model model) {
+        List<Map<String, Object>> items = cartService.getCustomersCart();
+        double total = items
+                .stream()
+                .mapToDouble(item -> (int) item.get("quantity") * (double) item.get("price"))
+                .sum();
+
+        model.addAttribute("items", items);
+        model.addAttribute("total", total);
         return "purchase/checkout";
     }
 
