@@ -35,13 +35,13 @@
                                             </a>
                                         </td>
                                         <td class="product-thumbnail">
-                                            <a href="cart.html#">
+                                            <a :href="'/products/' + item.product_id">
                                                 <img :src="'/images' + item.product_image_url"
                                                      alt="" width="80" height="80">
                                             </a>
                                         </td>
                                         <td class="product-name">
-                                            <a href="#">{{ item.product }}</a>
+                                            <a :href="'/products/' + item.product_id">{{ item.product }}</a>
                                         </td>
                                         <td class="product-price">
                                             <span class="amount">
