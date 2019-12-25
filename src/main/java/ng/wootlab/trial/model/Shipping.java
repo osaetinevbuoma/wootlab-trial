@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @Entity
@@ -47,6 +48,12 @@ public class Shipping {
     @NotNull(message = "Phone number is required.")
     @Column(nullable = false)
     private String phone;
+
+    @OneToMany(targetEntity = Cart.class, mappedBy = "shipping")
+    private List<Cart> carts;
+
+    @OneToMany(targetEntity = Orders.class, mappedBy = "shipping")
+    private List<Orders> orders;
 
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;

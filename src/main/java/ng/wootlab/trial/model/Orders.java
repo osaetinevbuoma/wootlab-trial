@@ -20,7 +20,13 @@ public class Orders {
     private Integer id;
 
     @Column(nullable = false)
+    private Integer productId;
+
+    @Column(nullable = false)
     private String product;
+
+    @Column(nullable = false)
+    private String productImageUrl;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -39,16 +45,25 @@ public class Orders {
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
 
+    @ManyToOne(targetEntity = Shipping.class)
+    private Shipping shipping;
+
     public Orders() { }
 
-    public Orders(String product, Integer quantity, Double price) {
+    public Orders(Integer productId, String product, String productImageUrl, Integer quantity,
+                  Double price) {
+        this.productId = productId;
         this.product = product;
+        this.productImageUrl = productImageUrl;
         this.quantity = quantity;
         this.price = price;
     }
 
-    public Orders(String product, Integer quantity, Double price, String transactionReference) {
+    public Orders(Integer productId, String product, String productImageUrl, Integer quantity,
+                  Double price, String transactionReference) {
+        this.productId = productId;
         this.product = product;
+        this.productImageUrl = productImageUrl;
         this.quantity = quantity;
         this.price = price;
         this.transactionReference = transactionReference;

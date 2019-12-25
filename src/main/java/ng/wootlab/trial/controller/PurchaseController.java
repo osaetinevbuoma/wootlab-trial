@@ -7,6 +7,7 @@ import ng.wootlab.trial.model.Shipping;
 import ng.wootlab.trial.service.AuthenticationService;
 import ng.wootlab.trial.service.CheckoutService;
 import ng.wootlab.trial.service.CartService;
+import ng.wootlab.trial.service.EmailService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -29,12 +30,15 @@ public class PurchaseController {
     private final AuthenticationService authenticationService;
     private final CheckoutService checkoutService;
     private final CartService cartService;
+    private final EmailService emailService;
 
     public PurchaseController(AuthenticationService authenticationService,
-                              CheckoutService checkoutService, CartService cartService) {
+                              CheckoutService checkoutService, CartService cartService,
+                              EmailService emailService) {
         this.authenticationService = authenticationService;
         this.checkoutService = checkoutService;
         this.cartService = cartService;
+        this.emailService = emailService;
     }
 
     @GetMapping("/cart")
@@ -142,7 +146,8 @@ public class PurchaseController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 
-        // TODO: Send email to customer
+        // Send order confirmation email to customer
+        emailService.sendOrderConfirmationEmail(orders);
 
         return ResponseEntity.ok().build();
     }

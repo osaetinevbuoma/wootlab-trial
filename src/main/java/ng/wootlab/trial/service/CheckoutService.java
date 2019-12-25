@@ -44,10 +44,18 @@ public class CheckoutService {
         Customer customer = customerRepository.getOne(authenticationService
                 .getAuthenticatedCustomer().getId());
 
+        List<Cart> carts = cartRepository.findAllByCustomer(customer);
+
         shipping = new Shipping(shipping.getFirstName(), shipping.getSurname(), shipping.getAddress(),
                 shipping.getCity(), shipping.getState(), shipping.getEmail(), shipping.getPhone());
         shipping.setCustomer(customer);
+
+        for (int i = 0; i < carts.size(); i++) {
+            carts.get(i).setShipping(shipping);
+        }
+
         shippingRepository.save(shipping);
+        cartRepository.saveAll(carts);
 
         return shipping;
     }
@@ -66,9 +74,11 @@ public class CheckoutService {
                 .getAuthenticatedCustomer().getId());
         List<Cart> carts = cartRepository.findAllByCustomer(customer);
         carts.forEach(cart -> {
-            Orders order = new Orders(cart.getProduct(), cart.getQuantity(), cart.getPrice(),
-                    reference);
+            Orders order = new Orders(cart.getProductId(), cart.getProduct(),
+                    cart.getProductImageUrl(), cart.getQuantity(), cart.getPrice(), reference);
             order.setCustomer(customer);
+            order.setShipping(cart.getShipping());
+
             orders.add(order);
         });
 

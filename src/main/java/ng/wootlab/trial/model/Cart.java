@@ -45,6 +45,9 @@ public class Cart {
     @ManyToOne(targetEntity = Customer.class)
     private Customer customer;
 
+    @ManyToOne(targetEntity = Shipping.class)
+    private Shipping shipping;
+
     public Cart() { }
 
     public Cart(Integer productId, String product, String productImageUrl, Double price) {

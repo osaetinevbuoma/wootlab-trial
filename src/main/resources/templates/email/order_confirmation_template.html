@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CRAFT - Registration Confirmed</title>
+
+    <style>
+        body{ background: #f1f2f6; padding: 2%; font-size: 14px; font-family: 'arial', sans-sarif; }
+        table{ padding: 0; margin: 0; border: none;  }
+        .maintable{ width: 600px; margin: 0 auto; }
+        .bigtext{font-size: 30px; color: #000;}
+        a.linktext{ color: #ff0000; text-decoration: none; white-space: nowrap; }
+
+        @media (max-width: 600px) {
+            body{ padding: 15px; }
+            .maintable{ width: 100%; }
+        }
+        @media (max-width: 414px) {
+            .bigtext{font-size: 22px;}
+
+        }
+    </style>
+</head>
+<body>
+<table cellspacing="0" cellpadding="0" class="maintable">
+    <tr>
+        <td>
+            <table cellspacing="0" cellpadding="0" width="100%" align="center" style="background: #fff; text-align: center;">
+                <tr>
+                    <td align="center" style="padding: 40px 0 30px;">
+                         <img src="../../static/images/logo.png" th:src="|cid:${logo}|"
+                             width="144" alt="">
+                    </td>
+                </tr>
+                <tr>
+                    <td class="bigtext">Your order is complete</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; color: #737373; padding: 20px 0 35px 0;">
+                        The details of your purchase is as follows:</td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; color: #737373; padding: 20px 0 35px 0;" align="center">
+                        <table cellspacing="2">
+                            <tr th:each="order : ${orders}">
+                                <td>
+                                    <img th:src="|cid:${'' + orderImg_ + order.id}|">
+                                </td>
+                                <td>
+                                    <span th:text="${order.product + ' &times; ' + order.quantity}"></span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="font-size: 14px; color: #737373; padding: 20px 0 35px 0;">
+                        Shipping information: <br>
+                        <span th:text="${orders.get(0).shipping.firstName + ' ' + orders.get(0).shipping.surname}"></span> <br>
+                        <span th:text="${orders.get(0).shipping.phone}"></span> <br>
+                        <span th:text="${orders.get(0).shipping.address}"></span> <br>
+                        <span th:text="${orders.get(0).shipping.city + ' ' + orders.get(0).shipping.state}"></span>
+                    </td>
+                </tr>
+                <tr>
+                    <td><a th:href="${url}" style="font-size: 14px; color: #fff; background: #058ed2; display: inline-block; padding: 16px; min-width: 270px; border-radius: 5px; text-decoration: none; font-weight: bold;">Continue Shopping</a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 35px 0 50px; font-size: 14px; color: #737373; line-height: 20px;">
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center" style="padding: 20px 0; color: #6d6d6f; font-size: 12px;">
+            &copy;<script>document.write(new Date().getFullYear());</script> Wootlab Marketplace.
+    </tr>
+</table>
+</body>
+</html>
