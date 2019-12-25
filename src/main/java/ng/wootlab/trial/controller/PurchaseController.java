@@ -1,7 +1,11 @@
 package ng.wootlab.trial.controller;
 
+import ng.wootlab.trial.auth.AuthenticatedCustomer;
 import ng.wootlab.trial.exception.CartNotFoundException;
-import ng.wootlab.trial.model.Cart;
+import ng.wootlab.trial.model.Orders;
+import ng.wootlab.trial.model.Shipping;
+import ng.wootlab.trial.service.AuthenticationService;
+import ng.wootlab.trial.service.CheckoutService;
 import ng.wootlab.trial.service.CartService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -9,8 +13,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -20,9 +26,14 @@ import java.util.logging.Logger;
 public class PurchaseController {
     private static final Logger log = Logger.getLogger(PurchaseController.class.getName());
 
+    private final AuthenticationService authenticationService;
+    private final CheckoutService checkoutService;
     private final CartService cartService;
 
-    public PurchaseController(CartService cartService) {
+    public PurchaseController(AuthenticationService authenticationService,
+                              CheckoutService checkoutService, CartService cartService) {
+        this.authenticationService = authenticationService;
+        this.checkoutService = checkoutService;
         this.cartService = cartService;
     }
 
@@ -84,16 +95,60 @@ public class PurchaseController {
 
         model.addAttribute("items", items);
         model.addAttribute("total", total);
+        model.addAttribute("shipping", new Shipping());
+
         return "purchase/checkout";
+    }
+
+    @PostMapping("/checkout")
+    public String processCheckout(@ModelAttribute @Valid Shipping shipping,
+                                  BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "purchase/checkout";
+        }
+
+        shipping = checkoutService.saveShippingInformation(shipping);
+
+        return "redirect:/payment";
+    }
+
+    @GetMapping("/payment")
+    public String payment(Model model) {
+        List<Map<String, Object>> items = cartService.getCustomersCart();
+        double total = items
+                .stream()
+                .mapToDouble(item -> (int) item.get("quantity") * (double) item.get("price"))
+                .sum();
+
+        AuthenticatedCustomer customer = authenticationService.getAuthenticatedCustomer();
+        int reference = (int) Math.floor((Math.random() * 1000000000) + 1);
+
+        model.addAttribute("paymentTotal", total * 100);
+        model.addAttribute("customer", customer);
+        model.addAttribute("reference", reference);
+
+        return "purchase/payment";
+    }
+
+    @PostMapping(value = "/payment", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> saveOrders(@RequestBody Map<String, Object> data) {
+        if (null == data.get("reference")) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Transaction reference missing");
+        }
+
+        List<Orders> orders = checkoutService.saveCustomerOrders(data.get("reference").toString());
+        if (orders.size() == 0) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+
+        // TODO: Send email to customer
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/confirmation")
     public String confirmation() {
         return "purchase/confirmation";
-    }
-
-    @GetMapping("/payment")
-    public String payment() {
-        return "purchase/payment";
     }
 }

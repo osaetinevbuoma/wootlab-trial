@@ -88,7 +88,7 @@ public class Utilities {
     }
 
     public void destroyDB() {
-        testEntityManager.getEntityManager().createQuery("DELETE FROM Billing");
+        testEntityManager.getEntityManager().createQuery("DELETE FROM Shipping");
         testEntityManager.getEntityManager().createQuery("DELETE FROM Cart");
         testEntityManager.getEntityManager().createQuery("DELETE FROM Category");
         testEntityManager.getEntityManager().createQuery("DELETE FROM Customer");

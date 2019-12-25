@@ -4,6 +4,9 @@
       layout:decorate="~{/layout}">
 <head>
     <title>Checkout</title>
+    <div layout:fragment="stylesheets">
+        <link rel="stylesheet" th:href="@{/stylesheets/intlTelInput.min.css}">
+    </div>
 </head>
 <body>
     <div layout:fragment="content">
@@ -11,108 +14,128 @@
         <div class="checkout-area ptb-20">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-6 col-md-12 col-12">
-                        <form action="checkout.html#">
-                            <div class="checkbox-form">
-                                <h3>Billing Details</h3>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>First Name <span class="required">*</span></label>
-                                            <input type="text" placeholder="" />
+                    <div class="col-lg-12 col-md-12 col-12">
+                        <form th:action="@{/checkout}" th:object="${shipping}" method="post">
+                            <div class="row">
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="checkbox-form">
+                                        <h3>Shipping Details</h3>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>First Name <span class="required">*</span></label>
+                                                    <input type="text" name="first_name"
+                                                           th:field="*{firstName}" required="required" />
+                                                    <span th:if="${#fields.hasErrors('firstName')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>Last Name <span class="required">*</span></label>
+                                                    <input type="text" name="surname"
+                                                           th:field="*{surname}" required="required" />
+                                                    <span th:if="${#fields.hasErrors('surname')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-12">
+                                                <div class="checkout-form-list">
+                                                    <label>Address <span class="required">*</span></label>
+                                                    <input type="text" name="address"
+                                                           th:field="*{address}" required="required" />
+                                                    <span th:if="${#fields.hasErrors('address')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>Town / City <span class="required">*</span></label>
+                                                    <input type="text" name="city" th:field="*{city}"
+                                                           required="required" />
+                                                    <span th:if="${#fields.hasErrors('city')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>State <span class="required">*</span></label>
+                                                    <input type="text" name="state" th:field="*{state}"
+                                                           required="required" />
+                                                    <span th:if="${#fields.hasErrors('state')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>Email Address <span class="required">*</span></label>
+                                                    <input type="email" name="email" th:field="*{email}"
+                                                           required="required" />
+                                                    <span th:if="${#fields.hasErrors('email')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="checkout-form-list">
+                                                    <label>Phone  <span class="required">*</span></label>
+                                                    <input type="text" name="phone" th:field="*{phone}"
+                                                           required="required" id="billing_phone" />
+                                                    <span th:if="${#fields.hasErrors('phone')}"
+                                                          class="text-danger"></span>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Last Name <span class="required">*</span></label>
-                                            <input type="text" placeholder="" />
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-12">
+                                    <div class="your-order">
+                                        <h3>Your order</h3>
+                                        <div class="your-order-table table-responsive">
+                                            <table>
+                                                <thead>
+                                                <tr>
+                                                    <th class="product-name">Product</th>
+                                                    <th class="product-total">Total</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr class="cart_item" th:each="item : ${items}">
+                                                    <td class="product-name" style="text-align: left">
+                                                        <span th:text="${item.get('product')}"></span>
+                                                        &times;
+                                                        <strong class="product-quantity"
+                                                                th:text="${item.get('quantity')}"></strong>
+                                                    </td>
+                                                    <td class="product-total">
+                                                <span class="amount"
+                                                      th:text="${'₦' + #numbers.formatDecimal(item.get('price'), 0, 'COMMA', 2, 'POINT')}"></span>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                                <tfoot>
+                                                <tr class="order-total">
+                                                    <th>Order Total</th>
+                                                    <td>
+                                                        <strong>
+                                                    <span class="amount"
+                                                          th:text="${'₦' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span>
+                                                        </strong>
+                                                    </td>
+                                                </tr>
+                                                </tfoot>
+                                            </table>
                                         </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <label>Address <span class="required">*</span></label>
-                                            <input type="text" placeholder="Street address" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12">
-                                        <div class="checkout-form-list">
-                                            <input type="text" placeholder="Apartment, suite, unit etc. (optional)" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Town / City <span class="required">*</span></label>
-                                            <input type="text" placeholder="" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>State <span class="required">*</span></label>
-                                            <input type="text" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Email Address <span class="required">*</span></label>
-                                            <input type="email" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="checkout-form-list">
-                                            <label>Phone  <span class="required">*</span></label>
-                                            <input type="text" />
+                                        <div class="payment-method">
+                                            <div class="payment-accordion">
+                                                <div class="order-button-payment">
+                                                    <input type="submit" value="Place order" th:if="${total > 0}" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </form>
-                    </div>
-                    <div class="col-lg-6 col-md-12 col-12">
-                        <div class="your-order">
-                            <h3>Your order</h3>
-                            <div class="your-order-table table-responsive">
-                                <table>
-                                    <thead>
-                                    <tr>
-                                        <th class="product-name">Product</th>
-                                        <th class="product-total">Total</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr class="cart_item" th:each="item : ${items}">
-                                        <td class="product-name" style="text-align: left">
-                                            <span th:text="${item.get('product')}"></span>
-                                            &times;
-                                            <strong class="product-quantity"
-                                                    th:text="${item.get('quantity')}"></strong>
-                                        </td>
-                                        <td class="product-total">
-                                            <span class="amount"
-                                                  th:text="${'₦' + #numbers.formatDecimal(item.get('price'), 0, 'COMMA', 2, 'POINT')}"></span>
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                    <tfoot>
-                                    <tr class="order-total">
-                                        <th>Order Total</th>
-                                        <td>
-                                            <strong>
-                                                <span class="amount"
-                                                      th:text="${'₦' + #numbers.formatDecimal(total, 0, 'COMMA', 2, 'POINT')}"></span>
-                                            </strong>
-                                        </td>
-                                    </tr>
-                                    </tfoot>
-                                </table>
-                            </div>
-                            <div class="payment-method">
-                                <div class="payment-accordion">
-                                    <div class="order-button-payment">
-                                        <input type="submit" value="Place order" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -124,9 +147,13 @@
         <!-- VueJS and other libraries -->
         <script type="text/javascript" th:src="@{/javascripts/lib/vue.js}"></script>
         <script type="text/javascript" th:src="@{/javascripts/lib/axios.min.js}"></script>
+        <script type="text/javascript" th:src="@{/javascripts/lib/intl-tel-input/intlTelInput.min.js}"></script>
 
         <!-- VueJS app files -->
         <script type="text/javascript" th:src="@{/javascripts/app/vue-app/wootlab-app.js}"></script>
+
+        <!-- International telephone input -->
+        <script type="text/javascript" th:src="@{/javascripts/app/intl.input.js}"></script>
     </div>
 </body>
 </html>

@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{/layout}">
 <head>
+    <meta th:replace="fragments/csrf :: csrf" />
     <title>Confirmation</title>
 </head>
 <body>
@@ -27,27 +28,32 @@
 
     <div layout:fragment="javascripts">
         <script src="https://js.paystack.co/v1/inline.js"></script>
-        <script>
+        <script type="text/javascript" th:src="@{/javascripts/lib/axios.min.js}"></script>
+        <script type="text/javascript" th:inline="javascript">
+        /*<![CDATA[*/
+            const csrf_header = $('meta[name="_csrf_header"]').attr('content'),
+                csrf_token = $('meta[name="_csrf"]').attr('content');
+            let headers = {};
+            headers[csrf_header] = csrf_token;
+
             PaystackPop.setup({
                 key: 'pk_test_11e5abfb56cdb46ed86516ce2620a87119819546',
-                email: 'customer@email.com',
-                amount: 10000,
+                email: /*[[${customer.email}]]*/ 'customer@email.com',
+                amount: /*[[${paymentTotal}]]*/ 10000,
                 container: 'paymentContainer',
-                currency: "NGN",
-                ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-                metadata: {
-                    custom_fields: [
-                        {
-                            display_name: "Mobile Number",
-                            variable_name: "mobile_number",
-                            value: "+2348012345678"
-                        }
-                    ]
-                },
+                currency: 'NGN',
+                ref: '' + /*[[${reference}]]*/ '',
                 callback: function (response) {
-                    alert('successfully subscribed. transaction ref is ' + response.reference);
+                    console.log(response);
+                    let data = { reference: response.reference };
+                    axios.post('/payment', data, { headers: headers }).then((res) => {
+                        window.location = '/confirmation';
+                    }).catch((error) => {
+                        console.log(error);
+                    });
                 },
             });
+        /*]]>*/
         </script>
     </div>
 </body>

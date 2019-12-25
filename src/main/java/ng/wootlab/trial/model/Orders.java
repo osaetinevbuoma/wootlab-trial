@@ -28,6 +28,8 @@ public class Orders {
     @Column(nullable = false)
     private Double price;
 
+    private String transactionReference;
+
     @CreatedDate
     private Date createdAt;
 
@@ -43,5 +45,12 @@ public class Orders {
         this.product = product;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public Orders(String product, Integer quantity, Double price, String transactionReference) {
+        this.product = product;
+        this.quantity = quantity;
+        this.price = price;
+        this.transactionReference = transactionReference;
     }
 }

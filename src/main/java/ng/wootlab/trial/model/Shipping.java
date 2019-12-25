@@ -7,36 +7,44 @@ import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class Billing {
+public class Shipping {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private Integer id;
 
+    @NotNull(message = "First name is required.")
     @Column(nullable = false)
     private String firstName;
 
+    @NotNull(message = "Surname is required.")
     @Column(nullable = false)
     private String surname;
 
+    @NotNull(message = "Shipping address is required.")
     @Column(nullable = false, length = 10000)
     private String address;
 
+    @NotNull(message = "City is required.")
     @Column(nullable = false)
     private String city;
 
+    @NotNull(message = "State is required.")
     @Column(nullable = false)
     private String state;
 
+    @NotNull(message = "Email address is required.")
     @Column(nullable = false)
     private String email;
 
+    @NotNull(message = "Phone number is required.")
     @Column(nullable = false)
     private String phone;
 
@@ -49,10 +57,10 @@ public class Billing {
     @LastModifiedDate
     private Date updatedAt;
 
-    public Billing() { }
+    public Shipping() { }
 
-    public Billing(String firstName, String surname, String address, String city, String state,
-                   String email, String phone) {
+    public Shipping(String firstName, String surname, String address, String city, String state,
+                    String email, String phone) {
         this.firstName = firstName;
         this.surname = surname;
         this.address = address;

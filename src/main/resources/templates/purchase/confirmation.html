@@ -11,12 +11,14 @@
         <div class="register-area ptb-20">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-md-12 col-12 col-lg-6 col-xl-6 ml-auto mr-auto">
-                        <h1 class="pt-20">Your order has been confirmed.</h1>
+                    <div class="col-md-12 col-12 col-lg-4 col-xl-4 ml-auto mr-auto"
+                         style="text-align: center">
+                        <h1 class="pt-20">Order confirmed <br>
+                            <span class="ion-checkmark-circled text-success"></span>
+                        </h1>
+                        <h3>You will receive a confirmation email shortly.</h3>
                         <div class="button-box pt-30">
-                            <div align="center">
-                                <a th:href="@{/products}" class="default-btn">Continue Shopping</a>
-                            </div>
+                            <a th:href="@{/products}" class="default-btn">Continue Shopping</a>
                         </div>
                     </div>
                 </div>

@@ -5,7 +5,6 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-import org.springframework.lang.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -46,8 +45,8 @@ public class Customer {
     @LastModifiedDate
     private Date updatedAt;
 
-    @OneToMany(targetEntity = Billing.class, mappedBy = "customer")
-    private List<Billing> billings;
+    @OneToMany(targetEntity = Shipping.class, mappedBy = "customer")
+    private List<Shipping> shippings;
 
     @OneToMany(targetEntity = Cart.class, mappedBy = "customer")
     private List<Cart> carts;
