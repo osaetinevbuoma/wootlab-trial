@@ -44,7 +44,6 @@
                 currency: 'NGN',
                 ref: '' + /*[[${reference}]]*/ '',
                 callback: function (response) {
-                    console.log(response);
                     let data = { reference: response.reference };
                     axios.post('/payment', data, { headers: headers }).then((res) => {
                         window.location = '/confirmation';
