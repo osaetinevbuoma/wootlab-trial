@@ -18,7 +18,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
@@ -43,7 +42,6 @@ public class CartUseCaseTests {
     private AuthenticationService authenticationService;
     private CartService cartService;
     private Utilities utilities;
-    private SecurityContext context;
 
     private static final Logger log = Logger.getLogger(CartUseCaseTests.class.getName());
 
