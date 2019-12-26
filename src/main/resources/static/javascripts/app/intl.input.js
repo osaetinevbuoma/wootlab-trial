@@ -6,8 +6,6 @@ const iti = window.intlTelInput(phone_input, {
     geoIpLookup: function(callback) {
         $.get('https://ipinfo.io', function() {}, 'jsonp').always(function(resp) {
             let countryCode = (resp && resp.country) ? resp.country : '';
-            console.log(resp);
-            console.log(countryCode);
             callback(countryCode);
         });
     },

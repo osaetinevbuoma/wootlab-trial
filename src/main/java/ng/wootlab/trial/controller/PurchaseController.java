@@ -2,6 +2,7 @@ package ng.wootlab.trial.controller;
 
 import ng.wootlab.trial.auth.AuthenticatedCustomer;
 import ng.wootlab.trial.exception.CartNotFoundException;
+import ng.wootlab.trial.exception.ProductNotFoundException;
 import ng.wootlab.trial.model.Orders;
 import ng.wootlab.trial.model.Shipping;
 import ng.wootlab.trial.service.AuthenticationService;
@@ -54,7 +55,7 @@ public class PurchaseController {
     @PostMapping(value = "/cart/add", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> addToCart(@RequestBody Map<String, Object> data)
-            throws CartNotFoundException {
+            throws ProductNotFoundException {
         if (null == data.get("product_id")) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing product ID");
         }
@@ -64,7 +65,7 @@ public class PurchaseController {
 
         Map<String, Object> resultMap = cartService.addToCart(productId, quantity);
         if (resultMap.get("cart") == null) {
-            throw new CartNotFoundException("Selected product does not exist.");
+            throw new ProductNotFoundException("Selected product does not exist.");
         }
 
         return ResponseEntity.ok(resultMap.get("is_new"));
