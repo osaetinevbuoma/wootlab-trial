@@ -26,7 +26,7 @@
                                 <div class="login-form">
                                     <form th:action="@{/}" method="post">
                                         <input type="email" name="email" placeholder="Email Address"
-                                               th:value="${customerEmail}">
+                                               th:value="${customerEmail}" autocomplete="off">
                                         <input type="password" name="password" placeholder="Password">
                                         <div class="button-box">
                                             <div class="login-toggle-btn">

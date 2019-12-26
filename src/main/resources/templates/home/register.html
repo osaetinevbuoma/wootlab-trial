@@ -22,19 +22,19 @@
                                 <div class="login-form">
                                     <form th:action="@{/register}" th:object="${customer}" method="post">
                                         <input type="text" name="firstname" placeholder="First Name"
-                                               th:field="*{firstName}">
+                                               th:field="*{firstName}" autocomplete="off">
                                         <span th:if="${#fields.hasErrors('firstName')}"
                                               th:errors="*{firstName}" class="text-danger"></span>
                                         <input type="text" name="surname" placeholder="Surname"
-                                               th:field="*{surname}">
+                                               th:field="*{surname}" autocomplete="off">
                                         <span th:if="${#fields.hasErrors('surname')}"
                                               th:errors="*{surname}" class="text-danger"></span>
                                         <input name="email" placeholder="Email Address" type="email"
-                                               th:field="*{email}">
+                                               th:field="*{email}" autocomplete="off">
                                         <span th:if="${#fields.hasErrors('email')}"
                                               th:errors="*{email}" class="text-danger"></span>
                                         <input type="password" name="password" placeholder="Password"
-                                               th:field="*{password}">
+                                               th:field="*{password}" autocomplete="off">
                                         <span th:if="${#fields.hasErrors('password')}"
                                               th:errors="*{password}" class="text-danger"></span>
                                         <div class="button-box">
