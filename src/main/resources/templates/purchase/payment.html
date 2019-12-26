@@ -12,7 +12,7 @@
         <div class="register-area ptb-20">
             <div class="container">
                 <div class="row" style="height: 500px">
-                    <div class="col-md-4 col-4 col-lg-4 col-xl-4 ml-auto mr-auto">
+                    <div class="col-md-12 col-12 col-lg-4 col-xl-4 ml-auto mr-auto">
                         <div id="paymentContainer"></div>
                         <div class="button-box pt-30">
                             <div align="center">
@@ -49,6 +49,10 @@
                         window.location = '/confirmation';
                     }).catch((error) => {
                         console.log(error);
+                        // in case connection to mail server fails on localhost
+                        setTimeout(() => {
+                            window.location = '/confirmation';
+                        }, 6000);
                     });
                 },
             });

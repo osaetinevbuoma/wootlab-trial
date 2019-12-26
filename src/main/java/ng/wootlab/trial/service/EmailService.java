@@ -58,7 +58,7 @@ public class EmailService {
 
     private MimeMessageHelper mimeMessageHelper(JavaMailSenderImpl sender, MimeMessage message,
                                                 String emailAddress, String subject,
-                                                String htmlContent, List<Orders> orders)
+                                                String htmlContent)
             throws MessagingException {
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
         helper.setFrom(sender.getJavaMailProperties().getProperty("mail.account.from"));
@@ -67,15 +67,6 @@ public class EmailService {
         helper.setText(htmlContent, true);
         helper.addInline("logo.png", new ClassPathResource("static/images/logo.png"),
                 "image/png");
-        orders.forEach(order -> {
-            try {
-                helper.addInline("orderImg_" + order.getId(),
-                        new ClassPathResource("static/images" + order.getProductImageUrl()),
-                        "image/jpg");
-            } catch (MessagingException e) {
-                e.printStackTrace();
-            }
-        });
 
         return helper;
     }
@@ -91,17 +82,15 @@ public class EmailService {
         try {
             JavaMailSenderImpl sender = mailSender();
 
-            // URL for "Continue Shopping" button.
-            String url = String.format("%s://%s:%d/products", httpServletRequest.getScheme(),
+            // Base URL for links in template.
+            String baseUrl = String.format("%s://%s:%d", httpServletRequest.getScheme(),
                     httpServletRequest.getServerName(), httpServletRequest.getServerPort());
 
             // Prepare the evaluation context
             Context context = new Context();
             context.setVariable("orders", orders);
-            context.setVariable("url", url);
+            context.setVariable("baseUrl", baseUrl);
             context.setVariable("logo", "logo.png");
-            orders.forEach(order -> context.setVariable("orderImg_" + order.getId(),
-                    order.getProductImageUrl()));
 
             // Create the HTML body using Thymeleaf
             String htmlContent = templateEngine.process("email/order_confirmation_template.html",
@@ -113,7 +102,7 @@ public class EmailService {
             // Prepare message using a Spring helper
             MimeMessage message = sender.createMimeMessage();
             MimeMessageHelper helper = mimeMessageHelper(sender, message, emailAddress,
-                    "Order Confirmation", htmlContent, orders);
+                    "Order Confirmation", htmlContent);
 
             sender.send(message);
         } catch (MessagingException e) {

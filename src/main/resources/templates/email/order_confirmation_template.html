@@ -45,7 +45,8 @@
                         <table cellspacing="2">
                             <tr th:each="order : ${orders}">
                                 <td>
-                                    <img th:src="|cid:${'' + orderImg_ + order.id}|">
+                                    <img th:src="${baseUrl + '/images' + order.productImageUrl}"
+                                         style="width: 80px;">
                                 </td>
                                 <td>
                                     <span th:text="${order.product + ' &times; ' + order.quantity}"></span>
@@ -64,7 +65,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td><a th:href="${url}" style="font-size: 14px; color: #fff; background: #058ed2; display: inline-block; padding: 16px; min-width: 270px; border-radius: 5px; text-decoration: none; font-weight: bold;">Continue Shopping</a></td>
+                    <td><a th:href="${baseUrl + '/products'}" style="font-size: 14px; color: #fff; background: #058ed2; display: inline-block; padding: 16px; min-width: 270px; border-radius: 5px; text-decoration: none; font-weight: bold;">Continue Shopping</a></td>
                 </tr>
                 <tr>
                     <td style="padding: 35px 0 50px; font-size: 14px; color: #737373; line-height: 20px;">
