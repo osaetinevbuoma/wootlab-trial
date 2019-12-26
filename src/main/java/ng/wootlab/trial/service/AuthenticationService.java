@@ -20,7 +20,7 @@ public class AuthenticationService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Customer customer = customerRepository.findByEmail(username);
+        Customer customer = customerRepository.findByEmail(username).get();
         return new AuthenticatedCustomer(customer);
     }
 

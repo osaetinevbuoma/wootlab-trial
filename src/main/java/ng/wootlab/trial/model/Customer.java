@@ -2,7 +2,6 @@ package ng.wootlab.trial.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.validator.constraints.UniqueElements;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -33,7 +32,6 @@ public class Customer {
 
     @NotNull(message = "Email is required.")
     @Email(message = "Provide a correct email address.")
-    @UniqueElements(message = "An account with this email already exist.")
     @Column(nullable = false, unique = true)
     private String email;
 

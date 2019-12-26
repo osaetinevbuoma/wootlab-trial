@@ -5,6 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
@@ -16,6 +17,7 @@ import java.util.List;
 import java.util.Properties;
 
 @Service
+@PreAuthorize("authenticated")
 public class EmailService {
     private final AuthenticationService authenticationService;
     private final Environment environment;

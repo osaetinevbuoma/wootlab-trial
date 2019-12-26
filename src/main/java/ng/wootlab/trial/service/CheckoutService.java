@@ -8,12 +8,14 @@ import ng.wootlab.trial.repository.CartRepository;
 import ng.wootlab.trial.repository.OrderRepository;
 import ng.wootlab.trial.repository.ShippingRepository;
 import ng.wootlab.trial.repository.CustomerRepository;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Service
+@PreAuthorize("authenticated")
 public class CheckoutService {
     private final AuthenticationService authenticationService;
     private final CartService cartService;

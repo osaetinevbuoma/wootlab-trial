@@ -4,15 +4,17 @@ import ng.wootlab.trial.model.Customer;
 import ng.wootlab.trial.model.Role;
 import ng.wootlab.trial.repository.CustomerRepository;
 import ng.wootlab.trial.repository.RoleRepository;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.logging.Logger;
+
 @Service
-@PreAuthorize("authenticated")
 public class CustomerService {
     private final CustomerRepository customerRepository;
     private final RoleRepository roleRepository;
+
+    private final static Logger log = Logger.getLogger(Customer.class.getName());
 
     public CustomerService(CustomerRepository customerRepository, RoleRepository roleRepository) {
         this.customerRepository = customerRepository;
@@ -28,7 +30,7 @@ public class CustomerService {
      *  address
      */
     public Customer registerCustomer(Customer customer) {
-        if (null != customerRepository.findByEmail(customer.getEmail())) {
+        if (customerRepository.findByEmail(customer.getEmail()).isPresent()) {
             return null;
         }
 
@@ -39,6 +41,6 @@ public class CustomerService {
         newCustomer.setRole(role);
         customerRepository.save(newCustomer);
 
-        return customer;
+        return newCustomer;
     }
 }

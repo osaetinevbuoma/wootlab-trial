@@ -64,8 +64,8 @@ public class CartUseCaseTests {
         utilities.createCustomer();
 
         // Retrieve created customer and create cart
-        Customer customer = customerRepository.findByEmail(Utilities.EMAIL);
-        utilities.createCart(customer);
+        Optional<Customer> customer = customerRepository.findByEmail(Utilities.EMAIL);
+        utilities.createCart(customer.get());
     }
 
     @Test

@@ -17,6 +17,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @DataJpaTest
@@ -37,7 +38,7 @@ public class CheckoutUseCaseTests {
     private CartService cartService;
     private CheckoutService checkoutService;
     private Utilities utilities;
-    private Customer customer;
+    private Optional<Customer> customer;
 
     @BeforeEach
     void setUp() {
@@ -61,7 +62,7 @@ public class CheckoutUseCaseTests {
 
         // Retrieve created customer and create cart
         customer = customerRepository.findByEmail(Utilities.EMAIL);
-        utilities.createCart(customer);
+        utilities.createCart(customer.get());
     }
 
     @Test
@@ -69,7 +70,7 @@ public class CheckoutUseCaseTests {
         // Create and save shipping information
         Shipping shipping = new Shipping("John", "Doe", "Address",
                 "City", "State", "j.doe@testing.net", "+2341234567");
-        shipping.setCustomer(customer);
+        shipping.setCustomer(customer.get());
         Shipping newShippingInfo = checkoutService.saveShippingInformation(shipping);
         Assertions.assertThat(newShippingInfo.getFirstName()).isEqualTo("John");
         Assertions.assertThat(newShippingInfo.getSurname()).isEqualTo("Doe");
@@ -80,12 +81,12 @@ public class CheckoutUseCaseTests {
         Assertions.assertThat(newShippingInfo.getPhone()).isEqualTo("+2341234567");
 
         // Order operations
-        List<Cart> carts = cartRepository.findAllByCustomer(customer);
+        List<Cart> carts = cartRepository.findAllByCustomer(customer.get());
         int reference = (int) Math.floor((Math.random() * 1000000000) + 1);
         List<Orders> orders = checkoutService.saveCustomerOrders(String.valueOf(reference));
         Assertions.assertThat(orders.size()).isEqualTo(carts.size());
 
-        carts = cartRepository.findAllByCustomer(customer);
+        carts = cartRepository.findAllByCustomer(customer.get());
         Assertions.assertThat(carts.size()).isEqualTo(0);
     }
 }

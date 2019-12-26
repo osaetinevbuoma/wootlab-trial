@@ -11,6 +11,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.Optional;
+
 @SpringBootTest
 class RegistrationUseCaseTests {
 
@@ -38,11 +40,11 @@ class RegistrationUseCaseTests {
         customer = customerService.registerCustomer(customer);
 
         // when
-        Customer foundCustomer = customerRepository.findByEmail(customer.getEmail());
+        Optional<Customer> foundCustomer = customerRepository.findByEmail(customer.getEmail());
 
         // then
         Assertions.assertThat(foundCustomer).isNotNull();
-        Assertions.assertThat(foundCustomer.getEmail()).isEqualTo(customer.getEmail());
+        Assertions.assertThat(foundCustomer.get().getEmail()).isEqualTo(customer.getEmail());
     }
 
 }
