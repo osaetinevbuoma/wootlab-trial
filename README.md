@@ -27,6 +27,9 @@ project and download dependencies.
 * Run the Tomcat server by typing `./gradlew bootRun`. This creates the database table and starts 
 the Tomcat server.
 * The application will be accessible on `http://localhost:8080`.
+* **Note**: The app uses Mailgun settings to send emails. Create an account [here](http://www.mailgun.com)
+if you do not already have one. In `application.properties`, input the values of your email account
+username and password in `spring.mail.username` and `spring.mail.password` respectively.
 
 ### Note
 
